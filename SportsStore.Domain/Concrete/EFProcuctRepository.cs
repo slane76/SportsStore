@@ -9,7 +9,7 @@ using SportsStore.Domain.Concrete;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EFProcuctRepository : IProductRepository
+    public class EFProductRepository : IProductRepository
     {
         private EFDbContext context = new EFDbContext();
         public IEnumerable<Product> Products

@@ -11,6 +11,7 @@ namespace SportsStore.WebUI.Controllers
         {
             repository = repo;
         }
+
         public PartialViewResult Menu(string category = null)
         {
             ViewBag.SelectedCategory = category;
@@ -19,7 +20,8 @@ namespace SportsStore.WebUI.Controllers
             .Distinct()
             .OrderBy(x => x);
 
-            return PartialView(categories);
+            return PartialView("FlexMenu", categories);
         }
+
     }
 }

@@ -54,10 +54,10 @@ namespace SportsStore.UnitTests
             // Arrange - create the mock repository
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
-new Product {ProductID = 1, Name = "P1"},
-new Product {ProductID = 2, Name = "P2"},
-new Product {ProductID = 3, Name = "P3"},
-});
+            new Product {ProductID = 1, Name = "P1"},
+            new Product {ProductID = 2, Name = "P2"},
+            new Product {ProductID = 3, Name = "P3"},
+            });
             // Arrange - create the controller
             AdminController target = new AdminController(mock.Object);
             // Act
@@ -75,10 +75,10 @@ new Product {ProductID = 3, Name = "P3"},
             // Arrange - create the mock repository
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
-new Product {ProductID = 1, Name = "P1"},
-new Product {ProductID = 2, Name = "P2"},
-new Product {ProductID = 3, Name = "P3"},
-});
+            new Product {ProductID = 1, Name = "P1"},
+            new Product {ProductID = 2, Name = "P2"},
+            new Product {ProductID = 3, Name = "P3"},
+            });
             // Arrange - create the controller
             AdminController target = new AdminController(mock.Object);
             // Act
@@ -94,9 +94,9 @@ new Product {ProductID = 3, Name = "P3"},
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
                 new Product {ProductID = 1, Name = "P1"},
-new Product {ProductID = 2, Name = "P2"},
-new Product {ProductID = 3, Name = "P3"},
-});
+            new Product {ProductID = 2, Name = "P2"},
+            new Product {ProductID = 3, Name = "P3"},
+            });
             // Arrange - create a controller
             AdminController target = new AdminController(mock.Object);
             // Action
@@ -250,5 +250,26 @@ public class UnitTest1
         Assert.AreEqual(target.Lines.Where(c => c.Product == p2).Count(), 0);
         Assert.AreEqual(target.Lines.Count(), 2);
     }
+    [TestMethod]
+    public void Can_Delete_Valid_Products()
+    {
+        // Arrange - create a Product
+        Product prod = new Product { ProductID = 2, Name = "Test" };
+        // Arrange - create the mock repository
+        Mock<IProductRepository> mock = new Mock<IProductRepository>();
+        mock.Setup(m => m.Products).Returns(new Product[] {
+        new Product {ProductID = 1, Name = "P1"},
+        prod,
+        new Product {ProductID = 3, Name = "P3"},
+        });
+        // Arrange - create the controller
+        AdminController target = new AdminController(mock.Object);
+        // Act - delete the product
+        target.Delete(prod.ProductID);
+        // Assert - ensure that the repository delete method was
+        // called with the correct Product
+        mock.Verify(m => m.DeleteProduct(prod.ProductID));
+    }
+
 }
 
